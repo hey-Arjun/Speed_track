@@ -90,4 +90,4 @@ def run_pipeline(video_path):
     print("Pipeline shut down gracefully.")
 
 if __name__ == "__main__":
-    run_pipeline("Demo2.mp4")
+    run_pipeline("Demo3.mp4")
