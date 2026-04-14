@@ -4,7 +4,6 @@ from collections import deque
 
 class SpeedEstimator:
     def __init__(self):
-        # Coordinates for the 4K frame
         self.src_pts = np.float32([
             [380, 100], [610, 100], 
             [150, 950], [950, 950]  
@@ -18,11 +17,9 @@ class SpeedEstimator:
         self.matrix = cv2.getPerspectiveTransform(self.src_pts, self.dst_pts)
         self.history = {}
 
-    # RENAME THIS FROM estimate_speed TO estimate
     def estimate(self, track_id, bbox, timestamp):
         x1, y1, x2, y2 = bbox
         
-        # Secret 1: Contact point (Bottom Center)
         cx = (x1 + x2) / 2
         cy = y2 
         
@@ -35,7 +32,6 @@ class SpeedEstimator:
             self.history[track_id].append((curr_pos, timestamp))
             return 0
 
-        # Secret 2: Smoothing window
         prev_pos, prev_time = self.history[track_id][0] 
         
         dist_m = np.linalg.norm(curr_pos - prev_pos)
